@@ -1,21 +1,27 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // import pages
-import CreateEmployee from './Pages/CreateEmployee/index.jsx';
-import EmployeesList from './Pages/EmployeeList/index.jsx';
+import CreateEmployee from "./Pages/CreateEmployee/index.jsx";
+import EmployeesList from "./Pages/EmployeeList/index.jsx";
 
-import './App.css'
+import "./App.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <CreateEmployee />,
+    children: [],
+  },
+
+  {
+    path: "list",
+    element: <EmployeesList />,
+  },
+]);
 
 function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<CreateEmployee />} />
-                <Route path="/about" element={<EmployeesList />} />
-            </Routes>
-        </BrowserRouter>
-    )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

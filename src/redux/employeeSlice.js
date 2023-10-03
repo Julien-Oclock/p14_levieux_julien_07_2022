@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { datas} from "../data";
+import { datas } from "../data";
 
 const initialState = {
   employeeList: datas,
-  sortBy: null,
 };
 
 const employeeSlice = createSlice({
@@ -31,11 +30,6 @@ const employeeSlice = createSlice({
         );
       }
     },
-    // addEmployeeWithImmer: (state, action) => {
-    //   produce(state, (draft) => {
-    //     draft.employeeList.push(action.payload);
-    //   });
-    // },
   },
 });
 
