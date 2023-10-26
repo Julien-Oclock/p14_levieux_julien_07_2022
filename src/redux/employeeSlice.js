@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { datas } from "../data";
 
+const storedEmployeeList = JSON.parse(localStorage.getItem("employeeList")) || [];
+
 const initialState = {
-  employeeList: datas,
+  employeeList: storedEmployeeList.length ? storedEmployeeList : datas,
 };
 
 const employeeSlice = createSlice({
@@ -11,6 +13,7 @@ const employeeSlice = createSlice({
   reducers: {
     addEmployee: (state, action) => {
       state.employeeList.push(action.payload);
+      localStorage.setItem("employeeList", JSON.stringify(state.employeeList));
     },
     deleteEmployee: (state, action) => {
       state.employeeList = state.employeeList.filter(

@@ -17,12 +17,27 @@ form {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
+    gap : 20px;
     flex-direction: column;
     justify-content: center;
     background-color: #808080be;
     color: #fff;
   }
+
+  #last-name, #first-name,
+  #street, #city, #zip-code,
+  select {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
   
+  
+  #last-name{
+    margin-bottom: 30px;
+  }
   /* Style pour le titre */
   h2 {
     font-size: 24px;
@@ -36,24 +51,17 @@ form {
     margin-bottom: 5px;
   }
   
-  /* Style pour les champs de texte et de sélection */
-  input[type="text"],
-  input[type="number"],
-  select {
-    width: 80%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  
-  /* Style pour le champ de sélection de l'État */
-  #state {
-    /* Ajoutez ici les styles spécifiques */
+
+
+  .datepicker {
+    margin-bottom: 0 !important;
   }
 
+
+  
+
   .work-dep{
-    margin-top : 50px;
+    margin-top : 20px;
   }
   
   /* Style pour le bouton */
@@ -71,4 +79,22 @@ form {
     background-color: #001b35;
 
   }
+
+//RETIRER LES FLÈCHES DES INPUTS NUMBER
+/* Firefox */
+
+
+/* Chrome */
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button { 
+-webkit-appearance: none;
+margin:0;
+}
+
+/* Opéra*/
+input::-o-inner-spin-button,
+input::-o-outer-spin-button { 
+-o-appearance: none;
+margin:0
+}
   
