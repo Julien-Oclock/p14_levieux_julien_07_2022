@@ -157,7 +157,7 @@ const datas = [
     { title: "Zip Code", accessor: "zipCode", sortable: true },
   ];
   
-  const department = [
+  const departments = [
     { name: "Sales", key: "sal" },
     { name: "Marketing", key: "mar" },
     { name: "Engineering", key: "eng" },
@@ -404,5 +404,5 @@ const datas = [
     },
   ];
   
-  export { datas, columns, states, department };
+  export { datas, columns, states, departments };
   
