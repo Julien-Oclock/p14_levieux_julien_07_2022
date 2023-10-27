@@ -19,12 +19,8 @@ export const isDateValid = (date) => {
 
 // check if date is in the past and return bool
 export const isDateInPast = (date) => {
-    console.log(date);
     let today = new Date();
-    console.log(today.toLocaleString());
     let dateToCheck = new Date(date);
-    console.log(dateToCheck.toLocaleString());  
-    console.log(dateToCheck < today);
     return dateToCheck < today;
 }
 
