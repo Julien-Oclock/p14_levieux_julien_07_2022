@@ -1,6 +1,21 @@
 import React from 'react';
 import { useTable, useSortBy } from 'react-table';
 
+// Ici aussi, nous devont ameliorer les performances de notre composant
+// Il faut donc utiliser React.memo pour memoriser le composant
+// React.memo prend en parametre le composant a memoriser
+// React.memo retourne un composant memorise
+// React.memo prend en parametre une fonction de comparaison
+// Cette fonction prend en parametre les props precedentes et les props actuelles
+// Cette fonction retourne un booleen
+// Si la fonction retourne true, le composant n'est pas mis a jour
+// Si la fonction retourne false, le composant est mis a jour
+// exemple : 
+// function areEqual(prevProps, nextProps) {
+//   // return true si les props sont egales
+//   // return false si les props sont differentes
+// }
+
 const EmployeeTable = ({ data, columns }) => {
   const {
     getTableProps,
