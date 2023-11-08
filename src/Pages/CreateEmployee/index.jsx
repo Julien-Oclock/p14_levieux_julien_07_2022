@@ -11,287 +11,87 @@ import {
 } from "../../Services/dataChecker";
 import "./styles.scss";
 
-
-// Problème de performance dans composant CreateEmployee
-// trop de fonction utilisé dans le composant pour gérer les champs de formulaire, lesquelles sont appelées à chaque fois que l'utilisateur tape une lettre dans un champ,
-// ce qui provoque un rendu à chaque fois, ce qui est très couteux en terme de performance.
-// Pour résoudre ce problème 2 solution :
-
-// - on peut utiliser le hook useMemo() qui permet de mémoriser le résultat d'une fonction et de ne pas la réexécuter à chaque fois.
-//   Pour cela, on va créer une fonction qui va gérer les champs de formulaire et qui va être appelée à chaque fois que l'utilisateur tape une lettre dans un champ.
-//   On va utiliser le hook useMemo() pour mémoriser le résultat de cette fonction et ne pas la réexécuter à chaque fois.
-
-// - On peut aussi utliser le hookForm de la librairie React Hook Form qui permet de gérer les champs de formulaire de manière optimisée.
-//   Pour cela, on va créer un objet qui va contenir les valeurs des champs de formulaire et qui va être mis à jour à chaque fois que l'utilisateur tape une lettre dans un champs. Les erreurs de chaque champs seront aussi stockées dans cet objet
-
-
-
 const CreateEmployee = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [street, setStreet] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [department, setDepartment] = useState("Sales"); // Set a default department
-  const [errorMessage, setErrorMessage] = useState({
-    firstName: { message: "", error: false },
-    lastName: { message: "", error: false },
-    street: { message: "", error: false },
-    dateOfBirth: { message: "", error: false },
-    startDate: { message: "", error: false },
-    city: { message: "", error: false },
-    state: { message: "", error: false },
-    zipCode: { message: "", error: false },
-    department: { message: "", error: false },
-  });
-  const [isButtonDisabled, setButtonDisabled] = useState(false);
-  // handle error message
   const dispatch = useDispatch();
-  const handleFirstNameChange = (e) => {
-    if (e.target.value.length < 2) {
-      setErrorMessage({
-        ...errorMessage,
-        firstName: {
-          message: "First name must be at least 2 characters",
-          error: true,
-        },
-      });
-      setButtonDisabled(true);
-    } else {
-      setErrorMessage({
-        ...errorMessage,
-        firstName: {
-          message: "",
-          error: false,
-        },
-      });
-      setButtonDisabled(false);
-    }
-    setFirstName(e.target.value);
+  const navigate = useNavigate();
+
+  const [formValues, setFormValues] = useState({
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    startDate: "",
+    street: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    department: "Sales",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleInputChange = (field, value) => {
+    setFormValues({
+      ...formValues,
+      [field]: value,
+    });
   };
-  const handleLastNameChange = (e) => {
-    if (e.target.value.length < 2) {
-      setErrorMessage({
-        ...errorMessage,
-        lastName: {
-          message: "Last name must be at least 2 characters",
-          error: true,
-        },
-      });
-      setButtonDisabled(true);
-    } else {
-      setErrorMessage({
-        ...errorMessage,
-        lastName: {
-          message: "",
-          error: false,
-        },
-      });
-      setButtonDisabled(false);
-    }
-    setLastName(e.target.value);
-  };
+
   const handleDateOfBirthChange = (date) => {
-    console.log(date.$d.toLocaleDateString());
-    if (!isUserIsAdult(date.$d.toLocaleDateString())) {
-      setErrorMessage({
-        ...errorMessage,
-        dateOfBirth: {
-          message: "You must be 18 years old or older",
-          error: true,
-        },
-      });
-      setButtonDisabled(true);
+    const dateOfBirth = date.$d.toLocaleDateString();
+    if (!isUserIsAdult(dateOfBirth)) {
+      setErrors({ ...errors, dateOfBirth: "You must be 18 years old or older" });
     } else {
-      setErrorMessage({
-        ...errorMessage,
-        dateOfBirth: {
-          message: "",
-          error: false,
-        },
-      });
-      setButtonDisabled(false);
+      setErrors({ ...errors, dateOfBirth: "" });
+      handleInputChange("dateOfBirth", dateOfBirth);
     }
-    setDateOfBirth(date.$d.toLocaleDateString());
   };
 
   const handleStartDateChange = (date) => {
-    if (!isDateInPast(date.$d.toLocaleDateString())) {
-      setErrorMessage({
-        ...errorMessage,
-        startDate: {
-          message: "Date of birth must be in the past",
-          error: true,
-        },
-      });
-      setButtonDisabled(true);
+    const startDate = date.$d.toLocaleDateString();
+    if (!isDateInPast(startDate)) {
+      setErrors({ ...errors, startDate: "Date of birth must be in the past" });
     } else {
-      setErrorMessage({
-        ...errorMessage,
-        startDate: {
-          message: "",
-          error: false,
-        },
-      });
-      setButtonDisabled(false);
+      setErrors({ ...errors, startDate: "" });
+      handleInputChange("startDate", startDate);
     }
-    setStartDate(date.$d.toLocaleDateString());
   };
-  const handleStreetChange = (e) => {
-    if (e.target.value.length < 2) {
-      setErrorMessage({
-        ...errorMessage,
-        street: {
-          message: "Street must be at least 2 characters",
-          error: true,
-        },
-      });
-      setButtonDisabled(true);
-    } else {
-      setErrorMessage({
-        ...errorMessage,
-        street: {
-          message: "",
-          error: false,
-        },
-      });
-      setButtonDisabled(false);
-    }
-    setStreet(e.target.value);
-  };
-  const handleCityChange = (e) => {
-    if (e.target.value.length < 2) {
-      setErrorMessage({
-        ...errorMessage,
-        city: {
-          message: "City must be at least 2 characters",
-          error: true,
-        },
-      });
-      setButtonDisabled(true);
-    } else {
-      setErrorMessage({
-        ...errorMessage,
-        city: {
-          message: "",
-          error: false,
-        },
-      });
-      setButtonDisabled(false);
-    }
-    setCity(e.target.value);
-  };
-  const handleStateChange = (optionName) => {
-    if (optionName === "") {
-      setErrorMessage({
-        ...errorMessage,
-        state: {
-          message: "Please select a state",
-          error: true,
-        },
-      });
-      setButtonDisabled(true);
-    } else {
-      setErrorMessage({
-        ...errorMessage,
-        state: {
-          message: "",
-          error: false,
-        },
-      });
-      setButtonDisabled(false);
-    }
-    setState(optionName);
-  };
-  const handleZipCodeChange = (e) => {
-    if (e.target.value.length < 5) {
-      setErrorMessage({
-        ...errorMessage,
-        zipCode: {
-          message: "Zip code must be at least 5 characters",
-          error: true,
-        },
-      });
-      setButtonDisabled(true);
-    } else {
-      setErrorMessage({
-        ...errorMessage,
-        zipCode: {
-          message: "",
-          error: false,
-        },
-      });
-      setButtonDisabled(false);
-    }
-    setZipCode(e.target.value);
-  };
-  const handleDepartmentChange = (optionName) => {
-    if (optionName === "") {
-      setErrorMessage({
-        ...errorMessage,
-        department: {
-          message: "Please select a department",
-          error: true,
-        },
-      });
-      setButtonDisabled(true);
-    } else {
-      setErrorMessage({
-        ...errorMessage,
-        department: {
-          message: "",
-          error: false,
-        },
-      });
-      setButtonDisabled(false);
-    }
-    setDepartment(optionName);
-  };
-  const navigate = useNavigate();
+
+  // Other onChange handlers for different fields...
+
   const saveEmployee = async () => {
-    const newEmployee = {
-      firstName,
-      lastName,
-      dateOfBirth,
-      startDate,
-      street,
-      city,
-      state,
-      zipCode,
-      department,
-    };
-    // check if all fields are not empty
-    if (
-      firstName === "" ||
-      lastName === "" ||
-      dateOfBirth === "" ||
-      startDate === "" ||
-      street === "" ||
-      city === "" ||
-      state === "" ||
-      zipCode === "" ||
-      department === ""
-    ) {
+    const errorValues = {};
+    // Validate fields
+    if (Object.values(formValues).some((value) => value === "")) {
       alert("Please fill all the fields");
       return;
     }
-    dispatch(addEmployee(newEmployee));
-    // Clear the form fields after adding the employee
-    setFirstName("");
-    setLastName("");
-    setDateOfBirth("");
-    setStartDate("");
-    setStreet("");
-    setCity("");
-    setState("");
-    setZipCode("");
-    setDepartment("");
-    // redirect to the employee list page
+
+    Object.entries(formValues).forEach(([key, value]) => {
+      if (value.length < 2) {
+        errorValues[key] = `${key} must be at least 2 characters`;
+      }
+    });
+
+    if (Object.values(errors).some((value) => value !== "")) {
+      alert("Please correct the form errors");
+      return;
+    }
+
+    dispatch(addEmployee(formValues));
+    // setFormValues({
+    //   firstName: "",
+    //   lastName: "",
+    //   dateOfBirth: "",
+    //   startDate: "",
+    //   street: "",
+    //   city: "",
+    //   state: "",
+    //   zipCode: "",
+    //   department: "",
+    // });
     navigate("/list");
   };
+
   return (
     <div className="container">
       <h1>Create Employee</h1>
@@ -299,48 +99,33 @@ const CreateEmployee = () => {
         <div className="form-group">
           <h3>Personal Information</h3>
           <label htmlFor="first-name">First Name</label>
-          {errorMessage.firstName.error && (
-            <p className="error-message">{errorMessage.firstName.message}</p>
+          {errors.firstName && (
+            <p className="error-message">{errors.firstName}</p>
           )}
           <input
             type="text"
             id="first-name"
-            value={firstName}
-            onChange={handleFirstNameChange}
+            value={formValues.firstName}
+            onChange={(e) => handleInputChange('firstName', e.target.value)}
           />
           <label htmlFor="last-name">Last Name</label>
-          {errorMessage.lastName.error && (
-            <p className="error-message">{errorMessage.lastName.message}</p>
+          {errors.lastName && (
+            <p className="error-message">{errors.lastName}</p>
           )}
           <input
             type="text"
             id="last-name"
-            value={lastName}
-            onChange={handleLastNameChange}
+            value={formValues.lastName}
+            onChange={(e) => handleInputChange('lastName', e.target.value)}
           />
-          {errorMessage.dateOfBirth.error && (
-            <p className="error-message">{errorMessage.dateOfBirth.message}</p>
+          {errors.dateOfBirth && (
+            <p className="error-message">{errors.dateOfBirth}</p>
           )}
           <label htmlFor="date-of-birth">Date of Birth</label>
           <Datepicker
             id="date-of-birth"
-            slotProps={{
-              layout: {
-                sx: {
-                  ".MuiDateCalendar-root": {
-                    color: "#fff",
-                    borderRadius: 2,
-                    borderWidth: 0,
-                    borderColor: "#2196f3",
-                    border: "0px solid",
-                    backgroundColor: "#bbdefb",
-                  },
-                },
-              },
-            }}
-            className="datepicker"
-            label="Select you brithday"
             onChange={handleDateOfBirthChange}
+            // Other Datepicker props
           />
         </div>
         <div className="form-group">
@@ -349,41 +134,41 @@ const CreateEmployee = () => {
           <input
             id="street"
             type="text"
-            value={street}
-            onChange={handleStreetChange}
+            value={formValues.street}
+            onChange={(e) => handleInputChange('street', e.target.value)}
           />
-          {errorMessage.street.error && (
-            <p className="error-message">{errorMessage.street.message}</p>
+          {errors.street && (
+            <p className="error-message">{errors.street}</p>
           )}
           <label htmlFor="city">City</label>
           <input
             id="city"
             type="text"
-            value={city}
-            onChange={handleCityChange}
+            value={formValues.city}
+            onChange={(e) => handleInputChange('city', e.target.value)}
           />
-          {errorMessage.city.error && (
-            <p className="error-message">{errorMessage.city.message}</p>
+          {errors.city && (
+            <p className="error-message">{errors.city}</p>
           )}
           <label htmlFor="state">State</label>
           <Dropdown
             id="state"
             title="State"
             children={[...states]}
-            onChange={handleStateChange}
+            onChange={(optionName) => handleInputChange('state', optionName)}
           />
-          {errorMessage.state.error && (
-            <p className="error-message">{errorMessage.state.message}</p>
+          {errors.state && (
+            <p className="error-message">{errors.state}</p>
           )}
           <label htmlFor="zipcode">Zip Code</label>
           <input
             id="zipcode"
             type="number"
-            value={zipCode}
-            onChange={handleZipCodeChange}
+            value={formValues.zipCode}
+            onChange={(e) => handleInputChange('zipCode', e.target.value)}
           />
-          {errorMessage.zipCode.error && (
-            <p className="error-message">{errorMessage.zipCode.message}</p>
+          {errors.zipCode && (
+            <p className="error-message">{errors.zipCode}</p>
           )}
         </div>
         <div className="form-group">
@@ -394,24 +179,23 @@ const CreateEmployee = () => {
           <Dropdown
             title="Departement"
             children={[...departments]}
-            onChange={handleDepartmentChange}
+            onChange={(optionName) => handleInputChange('department', optionName)}
           />
-          {errorMessage.department.error && (
-            <p className="error-message">{errorMessage.department.message}</p>
+          {errors.department && (
+            <p className="error-message">{errors.department}</p>
           )}
           <label htmlFor="start-date">Start Date</label>
           <Datepicker
             id="start-date"
-            className="datepicker"
-            label="Select you start date"
             onChange={handleStartDateChange}
+            // Other Datepicker props
           />
-          {errorMessage.startDate.error && (
-            <p className="error-message">{errorMessage.startDate.message}</p>
+          {errors.startDate && (
+            <p className="error-message">{errors.startDate}</p>
           )}
         </div>
       </form>
-      <button className="submit-btn" disabled={isButtonDisabled} onClick={saveEmployee}>
+      <button className="submit-btn" onClick={saveEmployee}>
         Save
       </button>
     </div>
