@@ -1,5 +1,4 @@
 {
-  "homepage": "https://Julien-Oclock.github.io/p14_levieux_julien_07_2022",
   "name": "p14_levieux_julien_07_2022",
   "private": true,
   "version": "0.0.0",
@@ -8,8 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@mui/material": "^5.14.15",
