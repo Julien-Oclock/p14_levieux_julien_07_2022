@@ -30,6 +30,12 @@ const CreateEmployee = () => {
   const [errors, setErrors] = useState({});
 
   const handleInputChange = (field, value) => {
+    // check if the value is empty or less than 2 characters
+    if (value.length < 2) {
+      setErrors({ ...errors, [field]: `${field} must be at least 2 characters` });
+    } else {
+      setErrors({ ...errors, [field]: "" });
+    }
     setFormValues({
       ...formValues,
       [field]: value,
