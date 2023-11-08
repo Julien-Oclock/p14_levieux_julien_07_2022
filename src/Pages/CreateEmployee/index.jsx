@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Dropdown } from "custom-dropdown-react";
 import { addEmployee } from "../../redux/employeeSlice";
 import { states, departments } from "../../data"; // Import your Redux action creator
-import Datepicker from "../../Components/DatePicker/DatePicker";
 import {
   isUserIsAdult,
   isDateInPast,
