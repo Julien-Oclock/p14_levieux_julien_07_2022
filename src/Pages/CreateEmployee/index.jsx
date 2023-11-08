@@ -121,12 +121,12 @@ const CreateEmployee = () => {
           {errors.dateOfBirth && (
             <p className="error-message">{errors.dateOfBirth}</p>
           )}
-          <label htmlFor="date-of-birth">Date of Birth</label>
+          {/* <label htmlFor="date-of-birth">Date of Birth</label>
           <Datepicker
             id="date-of-birth"
             onChange={handleDateOfBirthChange}
             // Other Datepicker props
-          />
+          /> */}
         </div>
         <div className="form-group">
           <h3>Adresse</h3>
@@ -184,7 +184,7 @@ const CreateEmployee = () => {
           {errors.department && (
             <p className="error-message">{errors.department}</p>
           )}
-          <label htmlFor="start-date">Start Date</label>
+          {/* <label htmlFor="start-date">Start Date</label>
           <Datepicker
             id="start-date"
             onChange={handleStartDateChange}
@@ -192,7 +192,7 @@ const CreateEmployee = () => {
           />
           {errors.startDate && (
             <p className="error-message">{errors.startDate}</p>
-          )}
+          )} */}
         </div>
       </form>
       <button className="submit-btn" onClick={saveEmployee}>
