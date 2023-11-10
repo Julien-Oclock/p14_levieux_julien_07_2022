@@ -5,6 +5,7 @@ import { Dropdown } from "custom-dropdown-react";
 import { addEmployee } from "../../redux/employeeSlice";
 import { states, departments } from "../../data"; // Import your Redux action creator
 import Datepicker from "../../Components/DatePicker/DatePicker";
+import { Modal } from "../../Components/Modal/modal";
 import {
   isUserIsAdult,
   isDateInPast,
@@ -13,7 +14,6 @@ import "./styles.scss";
 
 const CreateEmployee = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
     firstName: "",
@@ -26,6 +26,8 @@ const CreateEmployee = () => {
     zipCode: "",
     department: "Sales",
   });
+
+  const [openModal, setOpenModal] = useState(false);
 
   const [errors, setErrors] = useState({});
 
@@ -95,11 +97,13 @@ const CreateEmployee = () => {
       zipCode: "",
       department: "",
     });
-    navigate("/list");
+    setOpenModal(true);
   };
+
 
   return (
     <div className="container">
+      <Modal isOpen={openModal} />
       <h1>Create Employee</h1>
       <form className="create-employee" action="#" id="create-employee">
         <div className="form-group">
