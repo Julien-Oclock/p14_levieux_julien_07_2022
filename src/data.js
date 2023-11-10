@@ -1,7 +1,7 @@
 const datas = [
     {
       id: 1,
-      firstName: "Alex",
+      Firstname: "Alex",
       lastName: "A",
       startDate: "2021-08-12",
       department: "Human resources",
@@ -13,7 +13,7 @@ const datas = [
     },
     {
       id: 2,
-      firstName: "Randy",
+      Firstname: "Randy",
       lastName: "March",
       startDate: "1990-07-14",
       department: "Legal",
@@ -25,7 +25,7 @@ const datas = [
     },
     {
       id: 3,
-      firstName: "Robert",
+      Firstname: "Robert",
       lastName: "Nesta",
       startDate: "2019-12-12",
       department: "Legal",
@@ -37,7 +37,7 @@ const datas = [
     },
     {
       id: 4,
-      firstName: "Julia",
+      Firstname: "Julia",
       lastName: "R",
       startDate: "2020-07-08",
       department: "Engineering",
@@ -49,7 +49,7 @@ const datas = [
     },
     {
       id: 5,
-      firstName: "Ray",
+      Firstname: "Ray",
       lastName: "Demption",
       startDate: "2021-08-12",
       department: "Marketing",
@@ -61,7 +61,7 @@ const datas = [
     },
     {
       id: 6,
-      firstName: "Marshall",
+      Firstname: "Marshall",
       lastName: "M",
       startDate: "1992-03-17",
       department: "Marketing",
@@ -73,7 +73,7 @@ const datas = [
     },
     {
       id: 7,
-      firstName: "Meg",
+      Firstname: "Meg",
       lastName: "W",
       startDate: "2021-05-13",
       department: "Human resources",
@@ -85,7 +85,7 @@ const datas = [
     },
     {
       id: 8,
-      firstName: "Robert",
+      Firstname: "Robert",
       lastName: "Downey",
       startDate: "2020-09-23",
       department: "Legal",
@@ -97,7 +97,7 @@ const datas = [
     },
     {
       id: 9,
-      firstName: "Malcolm",
+      Firstname: "Malcolm",
       lastName: "Noname",
       startDate: "2021-08-12",
       department: "Sales",
@@ -109,7 +109,7 @@ const datas = [
     },
     {
       id: 10,
-      firstName: "Jack",
+      Firstname: "Jack",
       lastName: "W",
       startDate: "1990-07-14",
       department: "Sales",
@@ -121,7 +121,7 @@ const datas = [
     },
     {
       id: 11,
-      firstName: "Gwen",
+      Firstname: "Gwen",
       lastName: "S",
       startDate: "2021-12-12",
       department: "Marketing",
@@ -133,7 +133,7 @@ const datas = [
     },
     {
       id: 12,
-      firstName: "Megan",
+      Firstname: "Megan",
       lastName: "Racoon",
       startDate: "2020-09-23",
       department: "Sales",
@@ -146,7 +146,7 @@ const datas = [
   ];
   
   const columns = [
-    { title: "First Name", accessor: "firstName", sortable: true },
+    { title: "First Name", accessor: "Firstname", sortable: true },
     { title: "Last Name", accessor: "lastName", sortable: true },
     { title: "Start Date", accessor: "startDate", sortable: true },
     { title: "Department", accessor: "department", sortable: true },

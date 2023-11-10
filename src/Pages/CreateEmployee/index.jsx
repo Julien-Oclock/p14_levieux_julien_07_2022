@@ -15,7 +15,7 @@ const CreateEmployee = () => {
   const dispatch = useDispatch();
 
   const [formValues, setFormValues] = useState({
-    firstName: "",
+    Firstname: "",
     lastName: "",
     dateOfBirth: "",
     startDate: "",
@@ -86,7 +86,7 @@ const CreateEmployee = () => {
 
     dispatch(addEmployee(formValues));
     setFormValues({
-      firstName: "",
+      Firstname: "",
       lastName: "",
       dateOfBirth: "",
       startDate: "",
@@ -107,17 +107,17 @@ const CreateEmployee = () => {
       <form className="create-employee" action="#" id="create-employee">
         <div className="form-group">
           <h3>Personal Information</h3>
-          <label htmlFor="first-name">First Name</label>
-          {errors.firstName && (
-            <p className="error-message">{errors.firstName}</p>
+          <label htmlFor="first-name">Firstname</label>
+          {errors.Firstname && (
+            <p className="error-message">{errors.Firstname}</p>
           )}
           <input
             type="text"
             id="first-name"
-            value={formValues.firstName}
-            onChange={(e) => handleInputChange('firstName', e.target.value)}
+            value={formValues.Firstname}
+            onChange={(e) => handleInputChange('Firstname', e.target.value)}
           />
-          <label htmlFor="last-name">Last Name</label>
+          <label htmlFor="last-name">Lastname</label>
           {errors.lastName && (
             <p className="error-message">{errors.lastName}</p>
           )}
@@ -130,7 +130,7 @@ const CreateEmployee = () => {
           {errors.dateOfBirth && (
             <p className="error-message">{errors.dateOfBirth}</p>
           )}
-          <label htmlFor="date-of-birth">Date of Birth</label>
+          <label htmlFor="date-of-birth">Date of birth</label>
           <Datepicker
             id="date-of-birth"
             onChange={handleDateOfBirthChange}
@@ -169,7 +169,7 @@ const CreateEmployee = () => {
           {errors.state && (
             <p className="error-message">{errors.state}</p>
           )}
-          <label htmlFor="zipcode">Zip Code</label>
+          <label htmlFor="zipcode">Zipcode</label>
           <input
             id="zipcode"
             type="number"
@@ -193,7 +193,7 @@ const CreateEmployee = () => {
           {errors.department && (
             <p className="error-message">{errors.department}</p>
           )}
-          <label htmlFor="start-date">Start Date</label>
+          <label htmlFor="start-date">Starting date</label>
           <Datepicker
             id="start-date"
             onChange={handleStartDateChange}

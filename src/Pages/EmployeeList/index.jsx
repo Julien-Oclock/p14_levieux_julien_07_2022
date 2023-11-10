@@ -14,7 +14,7 @@ const EmployeeList = () => {
 
 
   const columns = [
-    { Header: "First Name", accessor: "firstName", sortable: true },
+    { Header: "First Name", accessor: "Firstname", sortable: true },
     { Header: "Last Name", accessor: "lastName", sortable: true },
     { Header: "Start Date", accessor: "startDate", sortable: true },
     { Header: "Department", accessor: "department", sortable: true },
