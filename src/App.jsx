@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CreateEmployee from "./Pages/CreateEmployee/index.jsx";
 import EmployeesList from "./Pages/EmployeeList/index.jsx";
 
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (

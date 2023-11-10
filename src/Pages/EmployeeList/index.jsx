@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux"; // Import the useSelector hook
 import EmployeeTable from "../../Components/EmployeeTable/EmployeeTable";
-import "./styles.css";
 
 
-import "./styles.css";
+import "./styles.scss";
 // Assurez-vous d'importer correctement le chemin du fichier
 
 const EmployeeList = () => {
@@ -27,8 +26,8 @@ const EmployeeList = () => {
   ];
 
   return (
-    <div className="app">
-      <h1>Tableau des Employés</h1>
+    <div className="employee-list">
+      <h1 className="employee-list__title">Tableau des Employés</h1>
       <EmployeeTable data={dataSet} columns={columns} />
     </div>
   );

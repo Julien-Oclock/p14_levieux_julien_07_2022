@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux"; // Import the useDispatch hook
-import { useNavigate } from "react-router-dom";
 import { Dropdown } from "custom-dropdown-react";
 import { addEmployee } from "../../redux/employeeSlice";
 import { states, departments } from "../../data"; // Import your Redux action creator
