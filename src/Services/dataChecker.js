@@ -33,3 +33,10 @@ export const isDateInFuture = (date) => {
 export const checkStringLenght = (string, min, max) => {
     return string.length >= min && string.length <= max;
 }
+ export const formatDateString = (DateString) => {
+    console.log(DateString);
+    // replace / by - for data format
+    let date = DateString.split('/').join('-');
+    return date;
+    
+ }

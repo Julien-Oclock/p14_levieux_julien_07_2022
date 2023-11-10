@@ -8,6 +8,7 @@ import { Modal } from "../../Components/Modal/modal";
 import {
   isUserIsAdult,
   isDateInPast,
+  formatDateString,
 } from "../../Services/dataChecker";
 import "./styles.scss";
 
@@ -33,7 +34,10 @@ const CreateEmployee = () => {
   const handleInputChange = (field, value) => {
     // check if the value is empty or less than 2 characters
     if (value.length < 2) {
-      setErrors({ ...errors, [field]: `${field} must be at least 2 characters` });
+      setErrors({
+        ...errors,
+        [field]: `${field} must be at least 2 characters`,
+      });
     } else {
       setErrors({ ...errors, [field]: "" });
     }
@@ -46,7 +50,10 @@ const CreateEmployee = () => {
   const handleDateOfBirthChange = (date) => {
     const dateOfBirth = date.$d.toLocaleDateString();
     if (!isUserIsAdult(dateOfBirth)) {
-      setErrors({ ...errors, dateOfBirth: "You must be 18 years old or older" });
+      setErrors({
+        ...errors,
+        dateOfBirth: "You must be 18 years old or older",
+      });
     } else {
       setErrors({ ...errors, dateOfBirth: "" });
       handleInputChange("dateOfBirth", dateOfBirth);
@@ -83,6 +90,9 @@ const CreateEmployee = () => {
       alert("Please correct the form errors");
       return;
     }
+    // format date to be stored in the database
+    formValues.dateOfBirth = formatDateString(formValues.dateOfBirth);
+    formValues.startDate = formatDateString(formValues.startDate);
 
     dispatch(addEmployee(formValues));
     setFormValues({
@@ -99,7 +109,6 @@ const CreateEmployee = () => {
     setOpenModal(true);
   };
 
-
   return (
     <div className="container">
       <Modal isOpen={openModal} />
@@ -115,7 +124,7 @@ const CreateEmployee = () => {
             type="text"
             id="first-name"
             value={formValues.Firstname}
-            onChange={(e) => handleInputChange('Firstname', e.target.value)}
+            onChange={(e) => handleInputChange("Firstname", e.target.value)}
           />
           <label htmlFor="last-name">Lastname</label>
           {errors.lastName && (
@@ -125,7 +134,7 @@ const CreateEmployee = () => {
             type="text"
             id="last-name"
             value={formValues.lastName}
-            onChange={(e) => handleInputChange('lastName', e.target.value)}
+            onChange={(e) => handleInputChange("lastName", e.target.value)}
           />
           {errors.dateOfBirth && (
             <p className="error-message">{errors.dateOfBirth}</p>
@@ -144,41 +153,33 @@ const CreateEmployee = () => {
             id="street"
             type="text"
             value={formValues.street}
-            onChange={(e) => handleInputChange('street', e.target.value)}
+            onChange={(e) => handleInputChange("street", e.target.value)}
           />
-          {errors.street && (
-            <p className="error-message">{errors.street}</p>
-          )}
+          {errors.street && <p className="error-message">{errors.street}</p>}
           <label htmlFor="city">City</label>
           <input
             id="city"
             type="text"
             value={formValues.city}
-            onChange={(e) => handleInputChange('city', e.target.value)}
+            onChange={(e) => handleInputChange("city", e.target.value)}
           />
-          {errors.city && (
-            <p className="error-message">{errors.city}</p>
-          )}
+          {errors.city && <p className="error-message">{errors.city}</p>}
           <label htmlFor="state">State</label>
           <Dropdown
             id="state"
             title="State"
             children={[...states]}
-            onChange={(optionName) => handleInputChange('state', optionName)}
+            onChange={(optionName) => handleInputChange("state", optionName)}
           />
-          {errors.state && (
-            <p className="error-message">{errors.state}</p>
-          )}
+          {errors.state && <p className="error-message">{errors.state}</p>}
           <label htmlFor="zipcode">Zipcode</label>
           <input
             id="zipcode"
             type="number"
             value={formValues.zipCode}
-            onChange={(e) => handleInputChange('zipCode', e.target.value)}
+            onChange={(e) => handleInputChange("zipCode", e.target.value)}
           />
-          {errors.zipCode && (
-            <p className="error-message">{errors.zipCode}</p>
-          )}
+          {errors.zipCode && <p className="error-message">{errors.zipCode}</p>}
         </div>
         <div className="form-group">
           <h3>Company Information</h3>
@@ -188,7 +189,9 @@ const CreateEmployee = () => {
           <Dropdown
             title="Departement"
             children={[...departments]}
-            onChange={(optionName) => handleInputChange('department', optionName)}
+            onChange={(optionName) =>
+              handleInputChange("department", optionName)
+            }
           />
           {errors.department && (
             <p className="error-message">{errors.department}</p>
