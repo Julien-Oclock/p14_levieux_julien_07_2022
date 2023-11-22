@@ -21,7 +21,14 @@ const employeeSlice = createSlice({
       );
     },
     editEmployee: (state, action) => {
-      // ... votre code d'édition existant
+      const { id, name, email, phone, address } = action.payload;
+      const employee = state.employeeList.find((employee) => employee.id === id);
+      if (employee) {
+        employee.name = name;
+        employee.email = email;
+        employee.phone = phone;
+        employee.address = address;
+      }
     },
     setSortBy: (state, action) => {
       state.sortBy = action.payload;
